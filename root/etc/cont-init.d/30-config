@@ -1,7 +1,13 @@
 #!/usr/bin/with-contenv bash
 
-# permissions
-chown -R abc:abc \
-	/config
-chown abc:abc \
-	/downloads
+DOWNLOAD_PATH=${DOWNLOAD_PATH:-/downloads}
+
+# Download path spec by user may have
+# multiple nested internal directories
+cd "${DOWNLOAD_PATH}" || exit 1
+while test "${PWD}" != "/"; do
+  chown abc:abc .
+  cd ..
+done
+
+chown -R abc:abc /config
