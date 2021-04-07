@@ -4,8 +4,9 @@ DOWNLOAD_PATH=${DOWNLOAD_PATH:-/downloads}
 
 # Download path spec by user may have
 # multiple nested internal directories
+mkdir -p "${DOWNLOAD_PATH}"
 cd "${DOWNLOAD_PATH}" || exit 1
-while test "${PWD}" != "/"; do
+until test "${PWD}" = "/"; do
   chown abc:abc .
   cd ..
 done
